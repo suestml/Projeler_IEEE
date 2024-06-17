@@ -1,37 +1,43 @@
 #include <stdio.h>
 #include <stdint.h>
 uint8_t checkNumber(uint8_t *numb, uint8_t *input) {
-    int j=0;
-    for(int i=0;i<5;i++){
-        if(numb[i]==input[j]){
-            printf("%d %d ",numb[i],input[j]);
-            printf("o\n");
-            j++;
-        }
-        
-        for(i=0; i<5;i++){
-            if(numb[i]==input[j]){
-                printf("%d %d ",numb[i],input[j]);
-                printf("+\n");
-                j++;
-                break;
+    int correct = 1; 
+    for (int i = 0; i < 5; i++) {
+        int j;
+        if (numb[i] == input[i]) {
+            printf("o");
+        } else {
+            int found = 0;
+            for (j = 0; j < 5; j++) {
+                if (numb[i] == input[j]) {
+                    found = 1;
+                    break;
+                }
+            }
+            if (found) {
+                printf("x");
+            } else {
+                printf("+");
+                correct = 0; 
             }
         }
-        if(numb[i]!=input[j]){
-            printf("%d %d ",numb[i],input[j]);
-            printf("x\n");
-            j++;
-        }
+    }
+    if (correct) {
+        printf("\nDoğru bildiniz, Tebrikler!\n");
+    } else {
+        printf("\nYanlış bildiniz, Tekrar deneyin!\n");
     }
 }
-
 int main() {
     uint8_t numb[5] = {4, 7, 3, 2, 1}; 
-//    uint8_t input[5] ={7,5,3,1,8}; //bu oldu
-    uint8_t input[5] ={1,7,3,2,6};
- //  uint8_t input[5] = {4, 7, 3, 2, 1};
+    uint8_t input[5];
+    
     printf("5 haneli bir sayi giriniz:\n");
-    printf("Sonuç: \n");
+    for (int i = 0; i < 5; i++) {
+        scanf("%hhu", &input[i]);
+    }
+    printf("Sonuc: ");
     checkNumber(numb, input);
+
     return 0;
 }
